@@ -1,6 +1,6 @@
 # b29-drf-assgn
 ### Creative Studio Workflow System
-Build a backend system for a creative studio platform where teams manage projects like posters, videos, campaigns, or content workflows.
+Build a full stack system (you may use react or any different frontend framework and Django REST Framework for backend) for a creative studio platform where teams manage projects like posters, videos, campaigns, or content workflows.
 
 The platform should support multiple studios/teams with isolated data and proper role-based access control. Example roles may include Studio Admin, Project Lead, Designer, Writer, Reviewer, and Client Viewer.
 
