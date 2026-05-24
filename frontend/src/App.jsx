@@ -1,26 +1,28 @@
+import { Routes, Route } from "react-router-dom";
 import Layout from "./components/layout";
-import TaskCard from "./components/taskcard";
-import CommentBox from "./components/commentbox";
+import Dashboard from "./pages/dashboard";
+import Login from "./pages/login";
+import Register from "./pages/register";
+import Projects from "./pages/projects";
+import TaskBoard from "./pages/taskboard";
+import TaskDetail from "./pages/taskdetail";
+import Notifications from "./pages/notifications";
 
 function App() {
-  const sampleTask = {
-    title: "Create Poster",
-    stage: "Draft",
-    priority: "High",
-  };
-
-  function addComment(text) {
-    console.log("Comment:", text);
-  }
-
   return (
-    <Layout>
-      <h1>Creative Studio Test</h1>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="projects" element={<Projects />} />
+        <Route path="tasks" element={<TaskBoard />} />
+        <Route path="tasks/:id" element={<TaskDetail />} />
+        <Route path="notifications" element={<Notifications />} />
+      </Route>
 
-      <TaskCard task={sampleTask} />
+      <Route path="/login" element={<Login />} />
 
-      <CommentBox onAdd={addComment} />
-    </Layout>
+      <Route path="/register" element={<Register />} />
+    </Routes>
   );
 }
 
