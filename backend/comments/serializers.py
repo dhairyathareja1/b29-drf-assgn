@@ -7,5 +7,12 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ["id", "task", "user", "username", "text", "created_at"]
-        read_only_fields = ["user"]
+        fields = ["id", "task", "user", "username", "text", "created_at", "parent"]
+        read_only_fields = ["user", "username", "created_at"]
+
+    def validate_task(self, task):
+        user = self.context["request"].user
+        membership_exists = task.project.studio.memberships.filter( user=user).exists()
+        if not membership_exists:
+            raise serializers.ValidationError( "You are not part of this studio")
+        return task
