@@ -12,12 +12,29 @@ export default function Notifications() {
     load();
   }, []);
 
+  async function markAsRead(id) {
+    await api.post(`/notifications/${id}/mark_read/`);
+
+    setNotifications((prev) =>
+      prev.map((notification) =>
+        notification.id === id
+          ? { ...notification, is_read: true }
+          : notification,
+      ),
+    );
+  }
+
   return (
     <div>
       <h2>Notifications</h2>
+      {notifications.length === 0 && <p>No notifications</p>}
       {notifications.map((item) => (
         <div key={item.id} className="notification">
-          {item.message}
+          <p>{item.message}</p>
+          <small>{item.type}</small>
+          {!item.is_read && (
+            <button onClick={() => markAsRead(item.id)}>Mark as Read</button>
+          )}
         </div>
       ))}
     </div>

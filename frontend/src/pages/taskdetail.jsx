@@ -12,11 +12,8 @@ export default function TaskDetail() {
     async function load() {
       const taskResponse = await api.get(`/tasks/${id}/`);
       setTask(taskResponse.data);
-      const commentResponse = await api.get("/comments/");
-
-      setComments(
-        commentResponse.data.filter((comment) => comment.task === Number(id)),
-      );
+      const commentResponse = await api.get(`/comments/?task=${id}`);
+      setComments(commentResponse.data);
     }
 
     load();
