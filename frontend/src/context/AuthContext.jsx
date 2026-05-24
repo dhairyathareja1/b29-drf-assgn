@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { createContext, useContext, useState } from "react";
+import { useEffect } from "react";
 
 import api from "../api/api";
 
@@ -7,6 +8,19 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  useEffect(() => {
+    async function loadUser() {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        const response = await api.get("/auth/me/");
+        setUser(response.data);
+      } catch {
+        logout();
+      }
+    }
+    loadUser();
+  }, []);
 
   async function login(username, password) {
     const response = await api.post("/auth/login/", {
@@ -15,7 +29,6 @@ export function AuthProvider({ children }) {
     });
 
     localStorage.setItem("token", response.data.access);
-
     const me = await api.get("/auth/me/");
 
     setUser(me.data);
@@ -27,7 +40,6 @@ export function AuthProvider({ children }) {
 
   function logout() {
     localStorage.clear();
-
     setUser(null);
   }
 

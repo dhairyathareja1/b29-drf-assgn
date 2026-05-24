@@ -7,16 +7,48 @@ import Projects from "./pages/projects";
 import TaskBoard from "./pages/taskboard";
 import TaskDetail from "./pages/taskdetail";
 import Notifications from "./pages/notifications";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Dashboard />} />
-        <Route path="projects" element={<Projects />} />
-        <Route path="tasks" element={<TaskBoard />} />
-        <Route path="tasks/:id" element={<TaskDetail />} />
-        <Route path="notifications" element={<Notifications />} />
+        <Route
+          path="projects"
+          element={
+            <ProtectedRoute>
+              <Projects />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="tasks"
+          element={
+            <ProtectedRoute>
+              <TaskBoard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="tasks/:id"
+          element={
+            <ProtectedRoute>
+              <TaskDetail />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="notifications"
+          element={
+            <ProtectedRoute>
+              <Notifications />
+            </ProtectedRoute>
+          }
+        />
       </Route>
 
       <Route path="/login" element={<Login />} />

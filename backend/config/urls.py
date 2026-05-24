@@ -30,5 +30,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path("api/", include("comments.urls")),
     path("api/", include("notifications.urls")),
+    path("api/auth/", include("accounts.urls"))
 ]
 
