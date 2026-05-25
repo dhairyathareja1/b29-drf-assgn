@@ -8,7 +8,7 @@ from notifications.services import create_notification
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthenticated, IsCommentOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated]
     filter_backends = [ DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ["task"]
     ordering_fields = ["created_at"]

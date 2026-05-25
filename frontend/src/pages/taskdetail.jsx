@@ -40,11 +40,7 @@ export default function TaskDetail() {
     }
 
     try {
-      await api.post("/comments/", {
-        task: id,
-        content: content,
-      });
-
+      await api.post("/comments/", { task: Number(id), text: content });
       setContent("");
       fetchData();
     } catch (err) {
@@ -79,7 +75,7 @@ export default function TaskDetail() {
         {comments.map((comment) => (
           <div className="comment" key={comment.id}>
             <h4>{comment.username}</h4>
-            <p>{comment.content}</p>
+            <p>{comment.text}</p>
           </div>
         ))}
       </div>
