@@ -35,17 +35,21 @@ export default function TaskDetail() {
 
   async function handleComment(e) {
     e.preventDefault();
+    if (!content.trim()) {
+      return;
+    }
 
     try {
       await api.post("/comments/", {
         task: id,
-        content,
+        content: content,
       });
 
       setContent("");
       fetchData();
     } catch (err) {
       console.log(err);
+      console.log(err.response?.data);
     }
   }
 
@@ -70,11 +74,15 @@ export default function TaskDetail() {
         <button>Add Comment</button>
       </form>
 
-      {comments.map((comment) => (
-        <div className="comment" key={comment.id}>
-          <p>{comment.content}</p>
-        </div>
-      ))}
+      <div>
+        {comments.length === 0 && <p>No comments yet</p>}
+        {comments.map((comment) => (
+          <div className="comment" key={comment.id}>
+            <h4>{comment.username}</h4>
+            <p>{comment.content}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

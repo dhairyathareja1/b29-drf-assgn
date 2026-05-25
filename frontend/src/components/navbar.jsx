@@ -11,6 +11,7 @@ export default function Navbar() {
         <Link to="/">Dashboard</Link>
         <Link to="/projects">Projects</Link>
         <Link to="/notifications">Notifications</Link>
+        <Link to="/studios">Studios</Link>
       </div>
       <button onClick={logout}>Logout</button>
     </div>

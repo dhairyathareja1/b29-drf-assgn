@@ -9,6 +9,7 @@ import TaskDetail from "./pages/taskdetail";
 import Notifications from "./pages/notifications";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProjectDetail from "./pages/projectdetail";
+import Studios from "./pages/Studios";
 
 function App() {
   return (
@@ -52,12 +53,34 @@ function App() {
         />
       </Route>
 
-      <Route path="/projects/:id" element={<ProjectDetail />} />
+      <Route
+        path="/projects/:id"
+        element={
+          <ProtectedRoute>
+            <ProjectDetail />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/tasks/:id" element={<TaskDetail />} />
+      <Route
+        path="/tasks/:id"
+        element={
+          <ProtectedRoute>
+            <TaskDetail />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/studios"
+        element={
+          <ProtectedRoute>
+            <Studios />
+          </ProtectedRoute>
+        }
+      />
 
       <Route path="/login" element={<Login />} />
-
       <Route path="/register" element={<Register />} />
     </Routes>
   );
