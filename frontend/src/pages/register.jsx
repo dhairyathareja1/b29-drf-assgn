@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../context/useAuth";
 
 export default function Register() {
@@ -9,10 +10,17 @@ export default function Register() {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   async function submit(e) {
     e.preventDefault();
-    await register(form);
-    alert("Registered");
+    try {
+      await register(form);
+      alert("Registered successfully! Please login.");
+      navigate("/login");
+    } catch (err) {
+      alert("Registration failed: " + (err.response?.data?.detail || "Please check your inputs"));
+    }
   }
 
   return (

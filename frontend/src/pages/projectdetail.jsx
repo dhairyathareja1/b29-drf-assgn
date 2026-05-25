@@ -7,6 +7,8 @@ export default function ProjectDetail() {
   const [project, setProject] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
+  const [status, setStatus] = useState("DRAFT");
+  const [priority, setPriority] = useState("MEDIUM");
 
   async function fetchData() {
     try {
@@ -40,12 +42,13 @@ export default function ProjectDetail() {
       await api.post("/tasks/", {
         title,
         project: id,
-        assigned_to: 1,
-        status: "DRAFT",
-        priority: "HIGH",
+        stage: status,
+        priority: priority,
       });
 
       setTitle("");
+      setStatus("DRAFT");
+      setPriority("MEDIUM");
 
       fetchData();
     } catch (err) {
@@ -72,6 +75,20 @@ export default function ProjectDetail() {
           onChange={(e) => setTitle(e.target.value)}
         />
 
+        <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <option value="DRAFT">Draft</option>
+          <option value="REVIEW">Review</option>
+          <option value="REVISION">Revision</option>
+          <option value="APPROVED">Approved</option>
+          <option value="COMPLETED">Completed</option>
+        </select>
+
+        <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+          <option value="LOW">Low</option>
+          <option value="MEDIUM">Medium</option>
+          <option value="HIGH">High</option>
+        </select>
+
         <button>Create Task</button>
       </form>
 
@@ -84,7 +101,7 @@ export default function ProjectDetail() {
           >
             <div className="card">
               <h3>{task.title}</h3>
-              <p>Status: {task.status}</p>
+              <p>Status: {task.stage}</p>
               <p>Priority: {task.priority}</p>
             </div>
           </Link>
