@@ -8,6 +8,7 @@ import TaskBoard from "./pages/taskboard";
 import TaskDetail from "./pages/taskdetail";
 import Notifications from "./pages/notifications";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProjectDetail from "./pages/projectdetail";
 
 function App() {
   return (
@@ -50,6 +51,10 @@ function App() {
           }
         />
       </Route>
+
+      <Route path="/projects/:id" element={<ProjectDetail />} />
+
+      <Route path="/tasks/:id" element={<TaskDetail />} />
 
       <Route path="/login" element={<Login />} />
 
